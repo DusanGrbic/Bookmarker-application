@@ -106,10 +106,12 @@ const validateForm = (name, url) => {
 
   // Check if for duplicate
   const bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
-  for (let i = 0; i < bookmarks.length; i++) {
-    if (bookmarks[i].url === url) {
-      alert('That bookmark already exists');
-      return false;
+  if (bookmarks) {
+    for (let i = 0; i < bookmarks.length; i++) {
+      if (bookmarks[i].url === url) {
+        alert('That bookmark already exists');
+        return false;
+      }
     }
   }
 
