@@ -1,0 +1,11 @@
+span.title{
+  font-size: 3rem
+}
+.well{
+  display: flex;
+  justify-content: space-between;
+}
+.links a{
+  margin-left: 1.5rem;
+  width: 70px;
+}
