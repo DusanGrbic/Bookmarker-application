@@ -21,6 +21,10 @@ const saveBookmark = (e) => {
   // Get input values and create object
   const name     = siteName.value;
   const url      = siteUrl.value;
+
+  // Validate form
+  if (! validateForm(name, url)) return;
+  
   const bookmark = {name, url}
 
   // Initialize bookmarks array variable
@@ -82,6 +86,35 @@ w.deleteBookmark = (name) => {
   // Set new bookmarks array in local storage and display it
   localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
   displayBookmarks();
+}
+
+const validateForm = (name, url) => {
+  // Make sure fields aren't empty
+  if (! name || ! url) {
+    alert('Please fill in the form');
+    return false;
+  }
+
+  // Validate URL
+  const re = /[-a-zA-Z0-9@:%_\+.~#?&/=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&/=]*)?/gi;
+  const regex = new RegExp(re);
+
+  if (! url.match(regex)) {
+    alert('Please use a valid URL');
+    return false;
+  }
+
+  // Check if for duplicate
+  const bookmarks = JSON.parse(localStorage.getItem('bookmarks'));
+  for (let i = 0; i < bookmarks.length; i++) {
+    if (bookmarks[i].url === url) {
+      alert('That bookmark already exists');
+      return false;
+    }
+  }
+
+  // Return 'true' if valid
+  return true;
 }
 
 
